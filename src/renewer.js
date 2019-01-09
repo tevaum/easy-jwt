@@ -26,7 +26,6 @@ const Renewer = stampit.init(function ({ threshold } = {}) {
         delete claim.iat;
 
         // If threshold was hit, return a new token. If not, returns the current one
-        console.log(remaining, threshold, remaining > threshold ? 'no' : 'yes')
         return remaining > threshold ? Promise.resolve(token) : this.sign(claim, kid);
     });
 });

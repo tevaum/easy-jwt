@@ -49,8 +49,8 @@ describe('Testing TokenRenewer', () => {
         let renewer = await TokenRenewer.create(renewer_options);
         let token = await renewer.sign({sub: 'me'}, 'keyb');
         let new_token = await renewer.renew(token);
-        console.log(token);
-        console.log(new_token);
+        // console.log(token);
+        // console.log(new_token);
 
         assert.notEqual(token, new_token);
     });
