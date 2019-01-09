@@ -44,7 +44,7 @@ When you use easy-jwt `create` funcion, you will get an object that will be able
 
 Of couse, as we are using assimetric encryption, this doesn't make much sense, so you can also do something like this:
 
-*auth-server.js*
+**auth-server.js**
 
 ```javascript
 import express from 'express';
@@ -89,19 +89,18 @@ and you will see as the output, something like this:
         "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImtleWIifQ.eyJpYXQiOjE1NDcwNTcxNDV9.Y0uQkd-hBUi_faz9wIRoZ5T4ryAguJeEFCNplbs9WddnQ7kflYacAizzf-fTKTN_AQdiXfXJcc3RijlObxKL3DctC_k4UQCDXAJrD7CDGqEMguZgSTV7QPauQlKFZC2pC4N5gX5D40UwEZY0rmGhxnkdAxVxXcMhY0qtc1OkT8ihW1Dom-XKReHE5e0iSuYKiFiiuSN2ZoXL12aH4E-rFVJ1h9pS6rUKYFTM_LrNWdTVUNuBgm-3pbFGDug8WmAGbDvktpROZB_CdQouCAtEXZS5bgV1eQtKYMnKxRIxcJLZAg9FeZHlcV4z9OyfU4115nCx7FyxPM_1vEWD2TQ5hw"
     }
 }
+```
 
-The public keys that will be used to validate the token are available at `http://localhost:3000/jwks.json`. You should take a look at that. ;)
+The public keys that will be used to validate the token are available at `http://localhost:3000/jwks.json`. You should take a look at that too. ;)
 
 And your api server should look like this:
 
-```
-
-*api-server.js*
+**api-server.js**
 
 ```javascript
 import express from 'express';
 import body_parser from 'body-parser';
-import easy_jwt
+import easy_jwt from 'easy-jwt';
 
 const data = {
     tasks: [
@@ -146,7 +145,8 @@ const check_access = claims => (req, res, next) => {
                 res.json(data.tasks);
             })
             .catch(err => {
-                // if the promise was rejected, we print the error and return a 401 Unauthorized response
+                // if the promise was rejected, we print the error in the console 
+                // and return a 401 Unauthorized response
                 console.log(err);
                 res.status(401).json({status: 'error', message: 'Unauthorized'});
             })
@@ -164,7 +164,7 @@ app.listen(3001, () => console.log('API server ready'));
 The `requireClaims` funcion accepts a claim object like in the example above, or arrays of
 objects if you need complex conditions of claim checks.
 
-For instance: `[ { claim: 'sub', value: 'your_username }, { claim: 'issuer', value: 'https://example.org/auth'}]` will check if the token has the `sub` claim with a value of `your_username` *AND* the claim `iss` with a value of `https://example.org/auth`.
+For instance: `[ { claim: 'sub', value: 'your_username }, { claim: 'issuer', value: 'https://example.org/auth'}]` will check if the token has the `sub` claim with a value of `your_username` **AND** the claim `iss` with a value of `https://example.org/auth`.
 
 You can also do OR check like this:
 
@@ -175,7 +175,7 @@ You can also do OR check like this:
 ]
 ```
 
-which will return true for `sub` with value `your_username` OR `sub` with value `my_username`.
+which will return true for `sub` with value `your_username` **OR** `sub` with value `my_username`.
 
 And that's it for now.
 
