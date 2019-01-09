@@ -164,9 +164,15 @@ app.listen(3001, () => console.log('API server ready'));
 The `requireClaims` funcion accepts a claim object like in the example above, or arrays of
 objects if you need complex conditions of claim checks.
 
-For instance: `[ { claim: 'sub', value: 'your_username }, { claim: 'issuer', value: 'https://example.org/auth'}]` will check if the token has the `sub` claim with a value of `your_username` **AND** the claim `iss` with a value of `https://example.org/auth`.
+For instance: 
 
-You can also do OR check like this:
+```json
+[ { "claim": "sub", "value": "your_username" }, { "claim": "issuer", "value": "https://example.org/auth" } ]
+```
+
+will check if the token has the `sub` claim with a value of `your_username` **AND** the claim `iss` with a value of `https://example.org/auth`.
+
+You can also do OR checks like this:
 
 ```json
 [
