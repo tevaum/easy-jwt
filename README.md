@@ -170,8 +170,8 @@ You can also do OR check like this:
 
 ```json
 [
-    [ { claim: "sub", value: "your_username" } ],
-    [ { claim: "sub", value: "my_username" } ]
+    [ { "claim": "sub", "value": "your_username" } ],
+    [ { "claim": "sub", "value": "my_username" } ]
 ]
 ```
 
