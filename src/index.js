@@ -1,15 +1,9 @@
-import TokenSigner from './signer';
-import TokenDecoder from './decoder';
-import TokenRenewer from './renewer';
-import ClaimChecker from './claim';
+export const TokenSigner  = require('./signer').default;
+export const TokenDecoder = require('./decoder').default;
+export const TokenRenewer = require('./renewer').default;
 
-module.exports = {
-    TokenSigner,
-    TokenDecoder,
-    TokenRenewer,
-    default: {
-        createSigner: options => TokenSigner.create(options),
-        createDecoder: options => TokenDecoder.compose(ClaimChecker)(options),
-        create: options => TokenRenewer.create(options)
-    }
+export default {
+    createSigner: options => TokenSigner.create(options),
+    createDecoder: options => TokenDecoder.compose(ClaimChecker)(options),
+    create: options => TokenRenewer.create(options)
 }
