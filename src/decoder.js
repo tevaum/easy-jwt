@@ -1,6 +1,7 @@
 import stampit from '@stamp/it';
 import jwt from 'jsonwebtoken';
 import KeyFetcher from './keyfetcher';
+import ClaimChecker from './claim';
 
 const TokenDecoder = stampit.init(function TV({ keys = [], jwks_url, ...options } = {}) {
     // console.log('Decoder constructor', options)
