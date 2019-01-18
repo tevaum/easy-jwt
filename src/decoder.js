@@ -38,4 +38,4 @@ const TokenDecoder = stampit.init(function TV({ keys = [], jwks_url, ...options 
     });
 });
 
-export default TokenDecoder
+export default TokenDecoder.compose(ClaimChecker)

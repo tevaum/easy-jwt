@@ -4,6 +4,6 @@ export const TokenRenewer = require('./renewer').default;
 
 export default {
     createSigner: options => TokenSigner.create(options),
-    createDecoder: options => TokenDecoder.compose(ClaimChecker)(options),
+    createDecoder: options => TokenDecoder(options),
     create: options => TokenRenewer.create(options)
 }
