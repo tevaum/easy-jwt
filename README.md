@@ -10,9 +10,9 @@ Frist of all, you need to generate some private keys to sign the tokens:
 
 ```bash
 
-$ openssl genpkey -algorithm RSA -out keya.pem -pkeyopt rsa_keygen_bits:4096
-$ openssl genpkey -algorithm RSA -out keyb.pem -pkeyopt rsa_keygen_bits:4096
-$ openssl genpkey -algorithm RSA -out keyc.pem -pkeyopt rsa_keygen_bits:4096
+$ openssl genrsa -f4 -out keys/keya.pem 4096
+$ openssl genrsa -f4 -out keys/keyb.pem 4096
+$ openssl genrsa -f4 -out keys/keyc.pem 4096
 ```
 
 Then, you only have to create a the token engine like this:
