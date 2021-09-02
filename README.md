@@ -42,7 +42,7 @@ My implementation is based on [auth0/node-jsonwebtoken](https://github.com/auth0
 
 When you use easy-jwt `create` funcion, you will get an object that will be able to `sign`, `decode` and `renew` tokens.
 
-Of couse, as we are using assimetric encryption, this doesn't make much sense, so you can also do something like this:
+Of couse, as we are using assimetric encryption, this doesn't make much sense, as the signer service will probably be different than the validator service, so you can also do something like this:
 
 **auth-server.js**
 
