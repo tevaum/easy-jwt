@@ -6,7 +6,7 @@ A simple abstraction for generating and validating RSA signed JWTs with multiple
 Usage
 -----
 
-Frist of all, you need to generate some private keys to sign the tokens:
+Starting out, you need to generate some private keys to sign the tokens:
 
 ```bash
 
@@ -15,7 +15,7 @@ $ openssl genrsa -f4 -out keys/keyb.pem 4096
 $ openssl genrsa -f4 -out keys/keyc.pem 4096
 ```
 
-Then, you only have to create a the token engine like this:
+Then, you only have to create a token engine like this:
 
 ```javascript
 
@@ -40,9 +40,9 @@ easy_jwt.create(options)
 
 My implementation is based on [auth0/node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken), so you can check their documentation to see which other options you may use.
 
-When you use easy-jwt `create` funcion, you will get an object that will be able to `sign`, `decode` and `renew` tokens.
+When you use easy-jwt `create` function, you will get an object that will be able to `sign`, `decode` and `renew` tokens.
 
-Of couse, as we are using assimetric encryption, this doesn't make much sense, as the signer service will probably be different than the validator service, so you can also do something like this:
+Of course, as we are using asymmetric encryption, this doesn't make much sense, as the signer service will probably be different from the validator service, so you can also do something like this:
 
 **auth-server.js**
 
@@ -80,7 +80,7 @@ You can test your authentication server with this command:
 $ curl -H 'Content-Type: application/json' http://localhost:3000/login -d '{"username": "your_username"}'
 ```
 
-and you will see as the output, something like this:
+and you will see something like this as the output:
 
 ```json
 {
@@ -126,7 +126,7 @@ const app = express();
 
 // The decoder doesn't need to load keys from the filesystem.
 // It will load and cache them on demand when receiving requests.
-// This way, it's creation is not assynchronous
+// This way, its creation is not assynchronous
 const jwt = easy_jwt.createDecoder(options);
 
 const app = express();
@@ -161,7 +161,7 @@ app.get('/tasks', check_access({ claim: 'sub', value: 'my_username' }), (req, re
 app.listen(3001, () => console.log('API server ready'));
 ```
 
-The `requireClaims` funcion accepts a claim object like in the example above, or arrays of
+The `requireClaims` function accepts a claim object like in the example above, or arrays of
 objects if you need complex conditions of claim checks.
 
 For instance: 
@@ -170,7 +170,7 @@ For instance:
 [ { "claim": "sub", "value": "your_username" }, { "claim": "issuer", "value": "https://example.org/auth" } ]
 ```
 
-will check if the token has the `sub` claim with a value of `your_username` **AND** the claim `iss` with a value of `https://example.org/auth`.
+Will check if the token has the `sub` claim with a value of `your_username` **AND** the claim `iss` with a value of `https://example.org/auth`.
 
 You can also do OR checks like this:
 
@@ -181,7 +181,7 @@ You can also do OR checks like this:
 ]
 ```
 
-which will return true for `sub` with value `your_username` **OR** `sub` with value `my_username`.
+Which will return true for `sub` with value `your_username` **OR** `sub` with value `my_username`.
 
 And that's it for now.
 
