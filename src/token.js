@@ -1,14 +1,18 @@
 import stampit from '@stamp/it';
-import rsa2jwk from 'rsa-pem-to-jwk';
+// import rsa2jwk from 'rsa-pem-to-jwk';
+import rsa2jwk from 'pem2jwk';
 import jwt from 'jsonwebtoken';
 import JWKS from 'jwks-rsa';
 import jwk2pem from 'jwk-to-pem';
 import { fstat, readFile } from 'fs';
 
 export const TokenEmitter = stampit.init(function TE(_, { stamp }) {
-	const {keys, alg, jwks_url, ...options} = stamp.compose.configuration;
+  const {keys, alg, jwks_url, ...options} = stamp.compose.configuration;
 
-	this.keys = keys.map(({kid, data}) => rsa2jwk(data, {use: 'sig', alg, kid}, 'public'));
+  // this.keys = keys.map(({kid, data}) => rsa2jwk(data, {use: 'sig', alg, kid}, 'public'));
+  this.keys = keys
+    .map(({kid, data}) => ({ kid, ...rsa2jwk(data) }))
+    .map(({ kid, kty, n, e }) => ({ kid, kty, n, e }));
 
 	this.createToken = (claim, kid) => new Promise((resolve, reject) => {
 	// console.log('[TokenEmitter] Creating token with kid', kid, 'and claim', claim);

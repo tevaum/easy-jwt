@@ -1,13 +1,16 @@
 import stampit from '@stamp/it';
 import JWKS from 'jwks-rsa';
 import jwk2pem from 'jwk-to-pem';
-import rsa2jwk from 'rsa-pem-to-jwk';
+// import rsa2jwk from 'rsa-pem-to-jwk';
+import rsa2jwk from 'pem2jwk';
 
 const KeyFetcher = stampit.init(function ({ keys = [], jwks_url, alg } = {}) {
     if (keys.length == 0 && !jwks_url) throw new Error('jwks_url must be passed to KeyFetcher');
     if (!alg) throw new Error('alg must be passed to KeyFetcher');
 
-    const pkeys = keys.map(({ kid, data }) => rsa2jwk(data, { use: 'sig', alg, kid }, 'public'));
+    const pkeys = keys
+          .map(({ kid, data }) => ({ kid, ...rsa2jwk(data) }))
+          .map(({ kid, kty, e, n }) => ({ kid, kty, e, n }));
 
     const RemoteKeyFetcher = jwks_url ? JWKS({ jwksUri: jwks_url }) : null;
 
